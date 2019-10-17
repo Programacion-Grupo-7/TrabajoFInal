@@ -23,9 +23,13 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+        public ActionResult SubirMusica()
+        {
+            return View();
+        }
 
         [HttpPost]
-        public ActionResult ingresarMusica(Cancion n, HttpPostedFileBase Audio)
+        public ActionResult SubirMusica(Cancion n, HttpPostedFileBase Audio)
         {
             n.Ubicacion = Audio.FileName;
             ViewBag.Cancion = BD.IngresarMusica(n);
