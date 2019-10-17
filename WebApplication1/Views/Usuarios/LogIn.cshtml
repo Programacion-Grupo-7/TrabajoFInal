@@ -3,13 +3,11 @@
 @{
     ViewBag.Title = "LogIn";
 }
-
 <h2>LogIn</h2>
-
-@using (Html.BeginForm("LogIn", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("LogIn", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
 
 {
-    <p>Usuario: @Html.TextBoxFor(x => x.NombreUsuario,new { type = "string" })</p>
+    <p>Usuario: @Html.TextBoxFor(x => x.NombreUsuario, new { type = "string" })</p>
     <p>Contraseña: @Html.TextBoxFor(x => x.Contraseña, new { type = "string" }) </p>
     <input type="submit" value="Enviar" />
 }

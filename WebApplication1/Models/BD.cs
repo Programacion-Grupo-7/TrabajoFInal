@@ -10,7 +10,7 @@ namespace WebApplication1.Models
 {
     public static class BD
     {
-        private static string _connectionString = "Server=.;Database=Pagina de Musica;Trusted_Connection=True;";
+        private static string _connectionString = "Server=localhost;Database=Pagina de Musica;Trusted_Connection=True;";
 
         public static string ConnectionString
         {
@@ -59,12 +59,12 @@ namespace WebApplication1.Models
         {
             SqlConnection conn = Conectar();
             SqlCommand consulta = conn.CreateCommand();
-            consulta.CommandText = "Registarse";
+            consulta.CommandText = "SP_RegistrarUsuario";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@Nombre", c.Nombre);
             consulta.Parameters.AddWithValue("@Apellido", c.Apellido);
-            consulta.Parameters.AddWithValue("@Usuario", c.NombreUsuario);
-            consulta.Parameters.AddWithValue("@Correo", c.Correo);
+            consulta.Parameters.AddWithValue("@NomUsuario", c.NombreUsuario);
+            consulta.Parameters.AddWithValue("@mail", c.Correo);
             consulta.Parameters.AddWithValue("@Contraseña", c.Contraseña);
             int cambio = consulta.ExecuteNonQuery();
             Desconectar(conn);
@@ -74,9 +74,9 @@ namespace WebApplication1.Models
         {
             SqlConnection conn = Conectar();
             SqlCommand consulta = conn.CreateCommand();
-            consulta.CommandText = "LogIn";
+            consulta.CommandText = "SP_Login";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@Usuario", c.NombreUsuario);    
+            consulta.Parameters.AddWithValue("@Usuario", c.NombreUsuario);
             consulta.Parameters.AddWithValue("@Contraseña", c.Contraseña);
             int cambio = consulta.ExecuteNonQuery();
             Desconectar(conn);

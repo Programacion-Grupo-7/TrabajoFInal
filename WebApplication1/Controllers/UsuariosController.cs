@@ -14,17 +14,16 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-        public ActionResult Registrarse(Usuario c)
+        public ActionResult Registrarse()
         {
-            ViewBag.Registro = BD.Registrarse(c); 
             return View();
         }
-        public ActionResult LogIn(Usuario c)
+
+        public ActionResult LogIn()
         {
-            Session["id"] = c.IdUsuario;
-            ViewBag.LogIn = BD.LogIn(c); 
             return View();
         }
+
         [HttpPost]
         public ActionResult ingresarMusica(Cancion n, HttpPostedFileBase Audio)
         {
@@ -32,7 +31,22 @@ namespace WebApplication1.Controllers
             ViewBag.Cancion = BD.IngresarMusica(n);
             Audio.SaveAs(Server.MapPath("~/Musica/") + Audio.FileName);
             return RedirectToAction("Index");
-            
+
+        }
+
+        [HttpPost]
+        public ActionResult Registrarse(Usuario u)
+        {
+            BD.Registrarse(u);
+            return RedirectToAction("Perfil");
+        }
+
+        [HttpPost]
+        public ActionResult LogIn(Usuario c)
+        {
+            Session["id"] = c.IdUsuario;
+            ViewBag.LogIn = BD.LogIn(c);
+            return RedirectToAction("Perfil");
         }
     }
 }

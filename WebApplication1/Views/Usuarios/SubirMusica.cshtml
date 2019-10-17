@@ -3,10 +3,9 @@
 @{
     ViewBag.Title = "SubirMusica";
 }
-
 <h2>SubirMusica</h2>
-
-@using (Html.BeginForm("SubirMusica", "Usuario", FormMethod.Post, new { enctyipe = "multipart/form-data" }))
-    {
-        <input type="file" name="SubirMusica" /> <button type="submit">Subir Musica</button>
-    }
+@using (Html.BeginForm("Usuarios", "ingresarMusica", FormMethod.Post, new { enctyipe = "multipart/form-data" }))
+{
+    <input type="file" name="SubirMusica" />
+    <button type="submit">Subir Musica</button>
+}
