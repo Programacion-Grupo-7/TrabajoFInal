@@ -1,0 +1,20 @@
+﻿@using WebApplication1.Models
+@model Usuario
+@{
+    ViewBag.Title = "Registrarse";
+}
+
+<h2>Registrarse</h2>
+
+@using (Html.BeginForm("LogIn", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    <p>Nombre: @Html.TextBoxFor(x => x.Nombre, new { type = "string" })</p>
+    <p>Apellido: @Html.TextBoxFor(x => x.Apellido, new { type = "string" }) </p>
+    <p>Usuario: @Html.TextBoxFor(x => x.NombreUsuario, new { type = "string" })</p>
+    <p>Mail: @Html.TextBoxFor(x => x.Correo, new { type = "string" }) </p>
+    <p>Contraseña: @Html.TextBoxFor(x => x.Contraseña, new { type = "string" }) </p>
+    <p>Telefono: @Html.TextBoxFor(x => x.Telefono, new { type = "string" }) </p>
+
+    <input type="submit" value="Enviar" />
+}

@@ -1,0 +1,12 @@
+﻿@using WebApplication1.Models
+@model Usuario
+@{
+    ViewBag.Title = "SubirMusica";
+}
+
+<h2>SubirMusica</h2>
+
+@using (Html.BeginForm("SubirMusica", "Usuario", FormMethod.Post, new { enctyipe = "multipart/form-data" }))
+    {
+        <input type="file" name="SubirMusica" /> <button type="submit">Subir Musica</button>
+    }
