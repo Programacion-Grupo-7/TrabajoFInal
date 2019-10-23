@@ -192,9 +192,9 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Tendencia.cshtml" />
-    <Content Include="Views\Home\Perfil.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Usuarios\Tendencia.cshtml" />
+    <Content Include="Views\Usuarios\Perfil.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Usuarios\SubirMusica.cshtml" />
     <Content Include="Views\Usuarios\LogIn.cshtml" />
@@ -202,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

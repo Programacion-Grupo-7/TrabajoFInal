@@ -10,8 +10,23 @@ namespace WebApplication1.Controllers
     public class UsuariosController : Controller
     {
         // GET: Usuarios
+
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult Perfil()
+        {
+            ViewBag.Message = "Tu Perfil";
+
+            return View();
+        }
+
+        public ActionResult Tendencia()
+        {
+            ViewBag.Message = "Lo mas escuchado estara aqui";
+
             return View();
         }
         public ActionResult Registrarse()
@@ -50,7 +65,8 @@ namespace WebApplication1.Controllers
         {
             Session["id"] = c.IdUsuario;
             ViewBag.LogIn = BD.LogIn(c);
-            return RedirectToAction("Perfil");
+            return View("Index");
         }
+        
     }
 }
