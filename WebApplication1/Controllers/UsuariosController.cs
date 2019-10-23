@@ -65,7 +65,15 @@ namespace WebApplication1.Controllers
         {
             Session["id"] = c.IdUsuario;
             ViewBag.LogIn = BD.LogIn(c);
-            return View("Index");
+            if(ViewBag.LogIn != null)
+            {
+                return View("Index");
+            }
+            else
+            {
+                return View("LogInError");
+            }
+            
         }
         
     }

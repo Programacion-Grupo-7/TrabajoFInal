@@ -1,0 +1,13 @@
+﻿@using WebApplication1.Models
+@model Usuario
+@{
+    ViewBag.Title = "LogInError";
+}
+
+<h2>LogInError</h2>
+
+@using (Html.BeginForm("LogInError", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h2>El Usuario no existe más o el nombre/contraseña están mal</h2>
+}
+@Html.ActionLink("Log In", "LogIn", "Usuarios")

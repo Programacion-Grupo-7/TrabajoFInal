@@ -70,17 +70,28 @@ namespace WebApplication1.Models
             Desconectar(conn);
             return cambio;
         }
-        public static int LogIn(Usuario c)
+        public static Usuario LogIn(Usuario c)
         {
+            Usuario unUsuario=null;
             SqlConnection conn = Conectar();
             SqlCommand consulta = conn.CreateCommand();
             consulta.CommandText = "SP_Login";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@Usuario", c.NombreUsuario);
             consulta.Parameters.AddWithValue("@Contraseña", c.Contraseña);
-            int cambio = consulta.ExecuteNonQuery();
+            SqlDataReader dr = consulta.ExecuteReader();
+            if(dr.HasRows)
+            {
+                int IdUsuario = Convert.ToInt32(dr["Id"]);
+                string Nombre = dr["Nombre"].ToString();
+                string Apellido = dr["Apellido"].ToString();
+                string NombreUsuario = dr["Nombre_Usuario"].ToString();
+                string Contraseña = dr["Contraseña"].ToString();
+                string Correo = dr["Correo"].ToString();
+                unUsuario = new Usuario(IdUsuario, Nombre, Apellido, NombreUsuario, Contraseña, Correo);
+            }
             Desconectar(conn);
-            return cambio;
+            return unUsuario;
         }
         public static int IngresarMusica(Cancion c)
         {
