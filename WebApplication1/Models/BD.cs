@@ -72,7 +72,7 @@ namespace WebApplication1.Models
         }
         public static Usuario LogIn(Usuario c)
         {
-            Usuario unUsuario=null;
+            
             SqlConnection conn = Conectar();
             SqlCommand consulta = conn.CreateCommand();
             consulta.CommandText = "SP_Login";
@@ -82,28 +82,24 @@ namespace WebApplication1.Models
             SqlDataReader dr = consulta.ExecuteReader();
             if(dr.HasRows)
             {
-                int IdUsuario = Convert.ToInt32(dr["Id"]);
-                string Nombre = dr["Nombre"].ToString();
-                string Apellido = dr["Apellido"].ToString();
-                string NombreUsuario = dr["Nombre_Usuario"].ToString();
-                string Contraseña = dr["Contraseña"].ToString();
-                string Correo = dr["Correo"].ToString();
-                unUsuario = new Usuario(IdUsuario, Nombre, Apellido, NombreUsuario, Contraseña, Correo);
+                Desconectar(conn);
+                return c;
             }
-            Desconectar(conn);
-            return unUsuario;
+            else
+            {
+                Desconectar(conn);
+                return null;
+            }
+           
         }
         public static int IngresarMusica(Cancion c)
         {
             SqlConnection conn = Conectar();
             SqlCommand consulta = conn.CreateCommand();
-            consulta.CommandText = "InsertarMusica";
+            consulta.CommandText = "SP_InsertarAudio";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@Nombre", c.Nombre);
-            consulta.Parameters.AddWithValue("@Artista", c.Artista);
-            consulta.Parameters.AddWithValue("@Album", c.Album);
             consulta.Parameters.AddWithValue("@Ubicacion", c.Ubicacion);
-            consulta.Parameters.AddWithValue("@id", c.id);
             int cambio = consulta.ExecuteNonQuery();
             Desconectar(conn);
             return cambio;

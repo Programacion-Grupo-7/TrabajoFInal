@@ -4,8 +4,10 @@
     ViewBag.Title = "SubirMusica";
 }
 <h2>SubirMusica</h2>
-@using (Html.BeginForm("SubirMusica", "Usuarios", FormMethod.Post, new { enctyipe = "multipart/form-data" }))
+@using (Html.BeginForm("SubirMusica", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <input type="file" name="SubirMusica" />
+
+    @Html.Label("Nombre: ") @Html.TextBoxFor(x => x.Nombre) @Html.ValidationMessageFor(x => x.Nombre) <br>
+    @Html.Label("Audio: ") <input type="file" value="Mandar audio del cliente al controller" name="Audio" /><br>
     <button type="submit">Subir Musica</button>
 }

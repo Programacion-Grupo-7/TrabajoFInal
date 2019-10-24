@@ -46,9 +46,17 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult SubirMusica(Cancion n, HttpPostedFileBase Audio)
         {
-            n.Ubicacion = Audio.FileName;
-            ViewBag.Cancion = BD.IngresarMusica(n);
-            Audio.SaveAs(Server.MapPath("~/Musica/") + Audio.FileName);
+            if (Audio != null && Audio.ContentLength > 0)
+            {
+                string newUbication = Server.MapPath("~/Musica/") + Audio.FileName;
+                Audio.SaveAs(newUbication);
+                n.Ubicacion = Audio.FileName;
+                BD.IngresarMusica(n);
+            }
+            /*else
+            {
+
+            }*/
             return RedirectToAction("Index");
 
         }
