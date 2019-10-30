@@ -104,5 +104,26 @@ namespace WebApplication1.Models
             Desconectar(conn);
             return cambio;
         }
+        public static Cancion TraerMusica()
+        {
+            List<Cancion> Lista = new List<Cancion>();
+            SqlConnection conn = Conectar();
+            SqlCommand consulta = conn.CreateCommand();
+            consulta.CommandText = "SP_TraerMusica";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlDataReader dr = consulta.ExecuteReader();
+            while (dr.Read())
+            {
+                int id = Convert.ToInt32(dr["id"]);
+                string Nombre = dr["Nombre"].ToString();
+                string Artista = dr["Artista"].ToString();
+                string Ubicacion = dr["Ubicacion"].ToString();
+                string Album = dr["Album"].ToString();
+                Cancion unaCancion = new Cancion(Nombre, id, Artista, Ubicacion, Album);
+                Lista.Add(unaCancion);
+            }
+            Desconectar(conn);
+            return Lista;
+        }
     }
 }

@@ -83,6 +83,16 @@ namespace WebApplication1.Controllers
             }
             
         }
+        [HttpPost]
+        public ActionResult Index(Cancion c)
+        {
+            while (c.Nombre != null)
+            {
+                List<Cancion> Lista = BD.TraerMusica(); 
+                ViewBag.ListaCanciones = Lista;
+            }
+            return View();
+        }
         
     }
 }

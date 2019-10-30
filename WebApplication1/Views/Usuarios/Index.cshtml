@@ -1,4 +1,17 @@
-﻿@{
+﻿@using WebApplication1.Models;
+@model Cancion
+
+@{
     ViewBag.Title = "Home Page";
+}
+
+<h1>Tal vez te interese</h1>
+@{
+    int i = 0;
+    foreach (Cancion c in ViewBag.ListaCanciones)
+    {
+        <audio src="../Musica/@c.Ubicacion"controls autoplay loop>@c.Nombre</audio>
+        i++;
+    }
 }
 
