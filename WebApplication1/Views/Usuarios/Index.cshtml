@@ -11,7 +11,7 @@
     {
         foreach (Cancion c in ViewBag.ListaCanciones)
         {
-            <h3>@c.Nombre</h3>
+            <label>@c.Nombre</label>
             <audio src="~/Musica/@c.Ubicacion" controls loop></audio>
 
         }

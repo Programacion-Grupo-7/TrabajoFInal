@@ -25,14 +25,13 @@
                     <li>@Html.ActionLink("Tendencia", "Tendencia", "Usuarios")</li>
                     @if (Session["id"] == null)
                     {
-                    <li>@Html.ActionLink("Registrarse", "Registrarse", "Usuarios")</li> 
+                        <li>@Html.ActionLink("Registrarse", "Registrarse", "Usuarios")</li>
                         <li>@Html.ActionLink("LogIn", "LogIn", "Usuarios")</li>
 
                     }
                     @if (Session["id"] != null)
                     {
-                        <li>@Html.ActionLink("Perfil", "Perfil", "Usuarios")</li>
-                        
+                        <li>@Html.ActionLink("Perfil", "Perfil", "Usuarios")</li>                      
                     }
                 </ul>
             </div>
