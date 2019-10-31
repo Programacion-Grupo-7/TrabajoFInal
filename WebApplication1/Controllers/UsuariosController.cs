@@ -10,24 +10,24 @@ namespace WebApplication1.Controllers
     public class UsuariosController : Controller
     {
         // GET: Usuarios
-
-        public ActionResult Index()
-        {
-            return View();
+       
+        public ActionResult Index(Cancion c)
+        { 
+                List<Cancion> Lista = BD.TraerMusica();
+                ViewBag.ListaCanciones = Lista;
+                return View();   
         }
 
         public ActionResult Perfil()
         {
-            ViewBag.Message = "Tu Perfil";
-
-            return View();
+                ViewBag.Message = "Tu Perfil";
+                return View();
         }
 
         public ActionResult Tendencia()
         {
-            ViewBag.Message = "Lo mas escuchado estara aqui";
-
-            return View();
+                ViewBag.Message = "Lo mas escuchado estara aqui";
+                return View();
         }
         public ActionResult Registrarse()
         {
@@ -46,20 +46,20 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult SubirMusica(Cancion n, HttpPostedFileBase Audio)
         {
-            if (Audio != null && Audio.ContentLength > 0)
-            {
-                string newUbication = Server.MapPath("~/Musica/") + Audio.FileName;
-                Audio.SaveAs(newUbication);
-                n.Ubicacion = Audio.FileName;
-                BD.IngresarMusica(n);
-            }
-            /*else
-            {
+               if (Audio != null && Audio.ContentLength > 0)
+                {
+                    string newUbication = Server.MapPath("~/Musica/") + Audio.FileName;
+                    Audio.SaveAs(newUbication);
+                    n.Ubicacion = Audio.FileName;
+                    BD.IngresarMusica(n);
+                }
+                /*else
+                {
 
-            }*/
-            return RedirectToAction("Index");
-
+                }*/
+                return RedirectToAction("Index");
         }
+        
 
         [HttpPost]
         public ActionResult Registrarse(Usuario u)
@@ -75,7 +75,7 @@ namespace WebApplication1.Controllers
             ViewBag.LogIn = BD.LogIn(c);
             if(ViewBag.LogIn != null)
             {
-                return View("Index");
+                return View("Perfil");
             }
             else
             {
@@ -83,16 +83,6 @@ namespace WebApplication1.Controllers
             }
             
         }
-        [HttpPost]
-        public ActionResult Index(Cancion c)
-        {
-            while (c.Nombre != null)
-            {
-                List<Cancion> Lista = BD.TraerMusica(); 
-                ViewBag.ListaCanciones = Lista;
-            }
-            return View();
-        }
-        
+
     }
 }

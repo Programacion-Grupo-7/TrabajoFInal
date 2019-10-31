@@ -96,7 +96,7 @@ namespace WebApplication1.Models
         {
             SqlConnection conn = Conectar();
             SqlCommand consulta = conn.CreateCommand();
-            consulta.CommandText = "SP_InsertarAudio";
+            consulta.CommandText = "SP_InsertarCancion";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@Nombre", c.Nombre);
             consulta.Parameters.AddWithValue("@Ubicacion", c.Ubicacion);
@@ -104,7 +104,7 @@ namespace WebApplication1.Models
             Desconectar(conn);
             return cambio;
         }
-        public static Cancion TraerMusica()
+        public static List<Cancion> TraerMusica()
         {
             List<Cancion> Lista = new List<Cancion>();
             SqlConnection conn = Conectar();
@@ -117,7 +117,7 @@ namespace WebApplication1.Models
                 int id = Convert.ToInt32(dr["id"]);
                 string Nombre = dr["Nombre"].ToString();
                 string Artista = dr["Artista"].ToString();
-                string Ubicacion = dr["Ubicacion"].ToString();
+                string Ubicacion = dr["UbicacionCancion"].ToString();
                 string Album = dr["Album"].ToString();
                 Cancion unaCancion = new Cancion(Nombre, id, Artista, Ubicacion, Album);
                 Lista.Add(unaCancion);

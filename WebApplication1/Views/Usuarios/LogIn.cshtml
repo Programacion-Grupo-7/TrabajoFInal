@@ -7,7 +7,18 @@
 @using (Html.BeginForm("LogIn", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
 
 {
-    <p>Usuario: @Html.TextBoxFor(x => x.NombreUsuario, new { type = "string" })</p>
-    <p>Contraseña: @Html.TextBoxFor(x => x.Contraseña, new { type = "password" }) </p>
-    <input type="submit" value="Enviar" />
+
+    //<p>Usuario: @Html.TextBoxFor(x => x.NombreUsuario, new { type = "string" })</p>
+    //<p>Contraseña: @Html.TextBoxFor(x => x.Contraseña, new { type = "password" }) </p>
+    <div class="form-group">
+        <label for="NombreUsuario" class="text-info">Username:</label><br>
+        <input type="text" name="NombreUsuario" id="NombreUsuario" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="Contraseña" class="text-info">Password:</label><br>
+        <input type="password" name="Contraseña" id="Contraseña" class="form-control">
+    </div>
+    <div class="form-input editContent" data-selector=".editContent" style=""><button class="btn" data-selector="a.btn, button.btn" style="">Login</button></div>
 }
+
+

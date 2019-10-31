@@ -7,11 +7,14 @@
 
 <h1>Tal vez te interese</h1>
 @{
-    int i = 0;
-    foreach (Cancion c in ViewBag.ListaCanciones)
+    if (ViewBag.ListaCanciones != null)
     {
-        <audio src="../Musica/@c.Ubicacion"controls autoplay loop>@c.Nombre</audio>
-        i++;
+        foreach (Cancion c in ViewBag.ListaCanciones)
+        {
+            <h3>@c.Nombre</h3>
+            <audio src="~/Musica/@c.Ubicacion" controls loop></audio>
+
+        }
     }
 }
 
