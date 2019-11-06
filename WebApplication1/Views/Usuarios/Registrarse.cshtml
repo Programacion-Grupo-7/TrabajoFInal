@@ -7,12 +7,13 @@
 @using (Html.BeginForm("Registrarse", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
 
 {
+<body>
     <p>Nombre: @Html.TextBoxFor(x => x.Nombre, new { type = "string" })</p>
     <p>Apellido: @Html.TextBoxFor(x => x.Apellido, new { type = "string" }) </p>
     <p>Usuario: @Html.TextBoxFor(x => x.NombreUsuario, new { type = "string" })</p>
     <p>Mail: @Html.TextBoxFor(x => x.Correo, new { type = "string" }) </p>
     <p>Contraseña: @Html.TextBoxFor(x => x.Contraseña, new { type = "string" }) </p>
-
+</body>
 
     <input type="submit" value="Enviar" />
 }

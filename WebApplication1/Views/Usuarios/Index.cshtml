@@ -4,17 +4,20 @@
 @{
     ViewBag.Title = "Home Page";
 }
+<body>
+    <h1>Tal vez te interese</h1>
+    @{
 
-<h1>Tal vez te interese</h1>
-@{
-    if (ViewBag.ListaCanciones != null)
-    {
-        foreach (Cancion c in ViewBag.ListaCanciones)
+        if (ViewBag.ListaCanciones != null)
         {
-            <label>@c.Nombre</label>
-            <audio src="~/Musica/@c.Ubicacion" controls loop></audio>
+            foreach (Cancion c in ViewBag.ListaCanciones)
+            {
+                <label>@c.Nombre</label>
+                <audio src="~/Musica/@c.Ubicacion" controls loop></audio>
 
+            }
         }
+
     }
-}
+</body>
 

@@ -3,14 +3,12 @@
 @{
     ViewBag.Title = "LogIn";
 }
-<h2>LogIn</h2>
+
 @using (Html.BeginForm("LogIn", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
 
 {
-
-    //<p>Usuario: @Html.TextBoxFor(x => x.NombreUsuario, new { type = "string" })</p>
-    //<p>Contraseña: @Html.TextBoxFor(x => x.Contraseña, new { type = "password" }) </p>
-<div style="padding: 15%; text-align:center;float:left;margin-left:25%;">   
+    <body> 
+<div style="padding: 15%; text-align:center;float:left;margin-left:25%;background-color:transparent;">   
  <div class="form-group">
         <label for="NombreUsuario" class="text-info">Username:</label><br>
         <input type="text" name="NombreUsuario" id="NombreUsuario" class="form-control">
@@ -21,6 +19,7 @@
     </div>
     <div class="form-input editContent" data-selector=".editContent" style=""><button class="btn" data-selector="a.btn, button.btn" style="">Login</button></div>
 </div>
+        </body>
 }
 
 

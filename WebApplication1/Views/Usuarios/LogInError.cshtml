@@ -8,6 +8,8 @@
 
 @using (Html.BeginForm("LogInError", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+<body>
     <h2>El Usuario no existe más o el nombre/contraseña están mal</h2>
+</body>
 }
 @Html.ActionLink("Log In", "LogIn", "Usuarios")
