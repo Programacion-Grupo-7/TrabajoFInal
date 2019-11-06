@@ -26,8 +26,9 @@ namespace WebApplication1.Controllers
 
         public ActionResult Tendencia()
         {
-                ViewBag.Message = "Lo mas escuchado estara aqui";
-                return View();
+            List<Cancion> Lista = BD.TOP50();
+            ViewBag.ListaCanciones = Lista;
+            return View();
         }
         public ActionResult Registrarse()
         {
@@ -42,7 +43,6 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public ActionResult SubirMusica(Cancion n, HttpPostedFileBase Audio)
         {

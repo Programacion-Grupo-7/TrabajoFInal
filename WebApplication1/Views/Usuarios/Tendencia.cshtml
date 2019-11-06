@@ -1,9 +1,21 @@
-﻿@{
+﻿@using WebApplication1.Models
+@model Cancion
+@{
     ViewBag.Title = "Tendencia";
 }
 <body>
-    <h2>@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
+    @{
 
-    <p>Use this area to provide additional information.</p>
+        if (ViewBag.ListaCanciones != null)
+        {
+            foreach (Cancion c in ViewBag.ListaCanciones)
+            {
+                <label>@c.Nombre</label>
+                <audio src="~/Musica/@c.Ubicacion" controls loop></audio>
+
+            }
+        }
+
+    }
+
 </body>
