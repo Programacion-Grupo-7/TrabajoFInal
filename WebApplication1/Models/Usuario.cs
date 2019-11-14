@@ -13,7 +13,9 @@ namespace WebApplication1.Models
         private string _NombreUsuario;
         private string _Contraseña;
         private string _Correo;
-        //private string _Telefono;
+
+
+      
 
 
         public Usuario() { }
@@ -26,7 +28,7 @@ namespace WebApplication1.Models
             _NombreUsuario = NombreUsuario;
             _Contraseña = Contraseña;
             _Correo = Correo;
-            //_Telefono = Telefono;
+   
         }
 
         public string Nombre
@@ -100,6 +102,7 @@ namespace WebApplication1.Models
                 _Correo = value;
             }
         }
+ 
         
     }
 }

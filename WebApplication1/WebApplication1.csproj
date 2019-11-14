@@ -200,6 +200,7 @@
     <Content Include="Views\Usuarios\LogIn.cshtml" />
     <Content Include="Views\Usuarios\Registrarse.cshtml" />
     <Content Include="Views\Usuarios\LogInError.cshtml" />
+    <Content Include="Views\Usuarios\CerrarSesion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,7 +10,7 @@ namespace WebApplication1.Models
 {
     public static class BD
     {
-        private static string _connectionString = "Server=localhost;Database=Pagina de Musica;Trusted_Connection=True;";
+        private static string _connectionString = "Server=localhost;Database=Pagina de Musica;uid=alumno; pwd=alumno1;";
 
         public static string ConnectionString
         {
@@ -49,11 +49,34 @@ namespace WebApplication1.Models
                 string NombreUsuario = dr["Nombre_Usuario"].ToString();
                 string Contraseña = dr["Contraseña"].ToString();
                 string Correo = dr["Correo"].ToString();
+             
                 Usuario unUsuario = new Usuario(IdUsuario, Nombre, Apellido, NombreUsuario, Contraseña, Correo);
                 lista.Add(unUsuario);
             }
             Desconectar(conn);
             return lista;
+        }
+        public static Usuario ObtenerUsuario(int id)
+        {
+            Usuario unUsuario=null;
+            SqlConnection conn = Conectar();
+            SqlCommand consulta = conn.CreateCommand();
+            consulta.CommandText = "SELECT Id, Nombre, Apellido, Nombre_Usuario, Contraseña, Correo FROM Usuarios where Id= " + id;
+            consulta.CommandType = System.Data.CommandType.Text;
+            consulta.Parameters.AddWithValue("@ID", id);
+            SqlDataReader dr = consulta.ExecuteReader();
+            if (dr.Read())
+            {
+                int Id = Convert.ToInt32(dr["id"]);
+                string Nombre = dr["Nombre"].ToString();
+                string Apellido = dr["Apellido"].ToString();
+                string NombreUsuario = dr["Nombre_Usuario"].ToString();
+                string Contraseña = dr["Contraseña"].ToString();
+                string Correo = dr["Correo"].ToString();
+                unUsuario = new Usuario(Id, Nombre, Apellido, NombreUsuario, Contraseña, Correo);
+            }
+            Desconectar(conn);
+            return unUsuario;
         }
         public static int Registrarse(Usuario c)
         {
@@ -72,7 +95,6 @@ namespace WebApplication1.Models
         }
         public static Usuario LogIn(Usuario c)
         {
-            
             SqlConnection conn = Conectar();
             SqlCommand consulta = conn.CreateCommand();
             consulta.CommandText = "SP_Login";
@@ -80,13 +102,23 @@ namespace WebApplication1.Models
             consulta.Parameters.AddWithValue("@Usuario", c.NombreUsuario);
             consulta.Parameters.AddWithValue("@Contraseña", c.Contraseña);
             SqlDataReader dr = consulta.ExecuteReader();
-            if(dr.HasRows)
+            if (dr.Read())
             {
+                
+                int id= Convert.ToInt32(dr["id"]);
+                string Nombre = dr["Nombre"].ToString();
+                string Apellido = dr["Apellido"].ToString();
+                string NombreUsuario = dr["Nombre_Usuario"].ToString();
+                string Contraseña = dr["Contraseña"].ToString();
+                string Correo = dr["Correo"].ToString();
+                
+                Usuario unusuario= new Usuario(id,Nombre, Apellido, NombreUsuario, Contraseña, Correo);
                 Desconectar(conn);
-                return c;
+                return unusuario;
             }
             else
             {
+
                 Desconectar(conn);
                 return null;
             }
@@ -118,8 +150,10 @@ namespace WebApplication1.Models
                 string Nombre = dr["Nombre"].ToString();
                 string Artista = dr["Artista"].ToString();
                 string Ubicacion = dr["UbicacionCancion"].ToString();
-                string Album = dr["Album"].ToString();
-                Cancion unaCancion = new Cancion(Nombre, id, Artista, Ubicacion, Album);
+                string Album = dr["IdAlbum"].ToString();
+                string Genero = dr["Genero"].ToString();
+                string Imagen = dr["UbicacionImagen"].ToString();
+                Cancion unaCancion = new Cancion(Nombre, id, Artista, Ubicacion, Album,Genero,Imagen);
                 Lista.Add(unaCancion);
             }
             Desconectar(conn);
@@ -130,7 +164,7 @@ namespace WebApplication1.Models
             List<Cancion> Lista = new List<Cancion>();
             SqlConnection conn = Conectar();
             SqlCommand consulta = conn.CreateCommand();
-            consulta.CommandText = "SELECT TOP 50 Nombre,Album,UbicacionCancion,Artista,id FROM CANCIONES";
+            consulta.CommandText = "SELECT TOP 50 Nombre,IdAlbum,UbicacionCancion,Artista,id,Genero,UbicacionImagen FROM CANCIONES";
             consulta.CommandType = System.Data.CommandType.Text;
             SqlDataReader dr = consulta.ExecuteReader();
             while (dr.Read())
@@ -139,8 +173,10 @@ namespace WebApplication1.Models
                 string Nombre = dr["Nombre"].ToString();
                 string Artista = dr["Artista"].ToString();
                 string Ubicacion = dr["UbicacionCancion"].ToString();
-                string Album = dr["Album"].ToString();
-                Cancion unaCancion = new Cancion(Nombre, id, Artista, Ubicacion, Album);
+                string Album = dr["IdAlbum"].ToString();
+                string Genero = dr["Genero"].ToString();
+                string Imagen = dr["UbicacionImagen"].ToString();
+                Cancion unaCancion = new Cancion(Nombre, id, Artista, Ubicacion, Album,Genero,Imagen);
                 Lista.Add(unaCancion);
             }
             Desconectar(conn);

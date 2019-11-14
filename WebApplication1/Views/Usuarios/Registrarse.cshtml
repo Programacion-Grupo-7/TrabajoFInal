@@ -3,17 +3,35 @@
 @{
     ViewBag.Title = "Registrarse";
 }
-<h2>Registrarse</h2>
 @using (Html.BeginForm("Registrarse", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
 
 {
 <body>
-    <p>Nombre: @Html.TextBoxFor(x => x.Nombre, new { type = "string" })</p>
-    <p>Apellido: @Html.TextBoxFor(x => x.Apellido, new { type = "string" }) </p>
-    <p>Usuario: @Html.TextBoxFor(x => x.NombreUsuario, new { type = "string" })</p>
-    <p>Mail: @Html.TextBoxFor(x => x.Correo, new { type = "string" }) </p>
-    <p>Contraseña: @Html.TextBoxFor(x => x.Contraseña, new { type = "string" }) </p>
+    <div style="padding: 15%; text-align:center;float:left;margin-left:25%;background-color:transparent;">
+        <div class="form-group">
+            <label for="Nombre" class="text-info">Nombre:</label><br>
+            <input type="text" name="Nombre" id="Nombre" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="Apellido" class="text-info">Apellido:</label><br>
+            <input type="text" name="Apellido" id="Apellido" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="NombreUsuario" class="text-info">Nombre de Usuario:</label><br>
+            <input type="text" name="NombreUsuario" id="NombreUsuario" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="Correo" class="text-info">Correo:</label><br>
+            <input type="text" name="Correo" id="Correo" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="Contraseña" class="text-info">Contraseña:</label><br>
+            <input type="password" name="Contraseña" id="Contraseña" class="form-control">
+        </div>
+        <div class="form-input editContent" data-selector=".editContent" style=""><button class="btn" data-selector="a.btn, button.btn" style="">Registrarse</button></div>
+    </div>
+    
 </body>
 
-    <input type="submit" value="Enviar" />
+   
 }

@@ -19,7 +19,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
+               
                 @if (Session["id"] != null)
                 {
                     @Html.ActionLink("FeniKusu", "Index", "Usuarios", new { area = "" }, new { @class = "navbar-brand" })
@@ -41,7 +41,9 @@
                         <li>@Html.ActionLink("Inicio", "Index", "Usuarios")</li>
                         <li>@Html.ActionLink("Tendencia", "Tendencia", "Usuarios")</li>
                         <li>@Html.ActionLink("Perfil", "Perfil", "Usuarios")</li>
+                        <li>@Html.ActionLink("Cerrar Sesion", "CerrarSesion", "Usuarios")</li>
                     }
+
                 </ul>
             </div>
         </div>

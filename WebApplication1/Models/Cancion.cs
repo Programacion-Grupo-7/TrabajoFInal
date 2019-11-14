@@ -12,20 +12,23 @@ namespace WebApplication1.Models
         private string _Artista;
         private string _Ubicacion;
         private string _Album;
+        private string _Genero;
+        private string _Imagen;
 
         
         public Cancion() { }
 
-        public Cancion(string Nombre, int id, string Artista, string Ubicacion, string Album)
+        public Cancion(string Nombre, int id, string Artista, string Ubicacion, string Album, string Genero, string Imagen)
         {
             _Nombre = Nombre;
             _id = id;
             _Artista = Artista;
             _Ubicacion = Ubicacion;
             _Album = Album;
+            _Genero = Genero;
+            _Imagen = Imagen;
         }
 
-       
         public string Ubicacion {
             get
             {
@@ -80,6 +83,27 @@ namespace WebApplication1.Models
                 _Artista = value;
             }
         }
-
+        public string Genero
+        {
+            get
+            {
+                return _Genero;
+            }
+            set
+            {
+                _Genero = value;
+            }
+        }
+        public string Imagen
+        {
+            get
+            {
+                return _Imagen;
+            }
+            set
+            {
+                _Imagen = value;
+            }
+        }
     }
 }

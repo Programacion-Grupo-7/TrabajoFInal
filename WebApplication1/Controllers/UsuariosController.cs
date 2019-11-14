@@ -18,10 +18,13 @@ namespace WebApplication1.Controllers
                 return View();   
         }
 
-        public ActionResult Perfil()
+        public ActionResult Perfil(Usuario u)
         {
-                ViewBag.Message = "Tu Perfil";
-                return View();
+            Session["id"] = u.IdUsuario;
+            u = BD.ObtenerUsuario(u.IdUsuario);
+            
+            ViewBag.Usuario = u;
+            return View();
         }
 
         public ActionResult Tendencia()
@@ -33,6 +36,17 @@ namespace WebApplication1.Controllers
         public ActionResult Registrarse()
         {
             return View();
+        }
+        public ActionResult CerrarSesion()
+        {
+            Session["id"] = null;
+            if(Session["id"] == null)
+            {
+                return View("LogIn");
+            } else
+            {
+                return View();
+            }
         }
 
         public ActionResult LogIn()
@@ -65,16 +79,16 @@ namespace WebApplication1.Controllers
         public ActionResult Registrarse(Usuario u)
         {
             BD.Registrarse(u);
-            return RedirectToAction("Perfil");
+            return RedirectToAction("LogIn");
         }
 
         [HttpPost]
         public ActionResult LogIn(Usuario c)
-        {
-            Session["id"] = c.IdUsuario;
+        {  
             ViewBag.LogIn = BD.LogIn(c);
-            if(ViewBag.LogIn != null)
+            if (ViewBag.LogIn != null)
             {
+                Session["id"] =ViewBag.LogIn.IdUsuario;
                 return View("Perfil");
             }
             else
@@ -83,6 +97,6 @@ namespace WebApplication1.Controllers
             }
             
         }
-
+    
     }
 }

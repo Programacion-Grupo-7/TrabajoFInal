@@ -5,15 +5,26 @@
     ViewBag.Title = "Home Page";
 }
 <body>
-    <h1>Tal vez te interese</h1>
+    <h1 style="color:orange;">Bienvenido!!</h1>
+    <div class="banner-bottom text-center" style="color:white;">
+
+        <h3>HOLA!!</h3>
+        <h4>Bienvenido al proyecto Phoenix</h4>
+        <p>
+            Aqui encontraras musica/ podcasts de diferentes artistas conocidos y que recien estan empezando.
+            Tambien tienes la posibilidad de subir tu propia musica/podcast.
+        </p>
+
+    </div>
     @{
 
         if (ViewBag.ListaCanciones != null)
         {
             foreach (Cancion c in ViewBag.ListaCanciones)
             {
-                <label>@c.Nombre</label>
-                <audio src="~/Musica/@c.Ubicacion" controls loop></audio>
+
+                <br><label style="color:white;">@c.Nombre</label> <br />
+                <br><audio src="~/Musica/@c.Ubicacion" controls loop></audio><br />
 
             }
         }

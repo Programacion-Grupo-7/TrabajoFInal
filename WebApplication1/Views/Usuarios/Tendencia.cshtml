@@ -10,8 +10,8 @@
         {
             foreach (Cancion c in ViewBag.ListaCanciones)
             {
-                <label>@c.Nombre</label>
-                <audio src="~/Musica/@c.Ubicacion" controls loop></audio>
+                <br /><label>@c.Nombre</label><br />
+                <br /><audio src="~/Musica/@c.Ubicacion" controls loop></audio><br />
 
             }
         }
