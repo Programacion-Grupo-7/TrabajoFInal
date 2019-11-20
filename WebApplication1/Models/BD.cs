@@ -182,5 +182,17 @@ namespace WebApplication1.Models
             Desconectar(conn);
             return Lista;
         }
+        public static int EliminarUsuario(string NombreUsuario, string Contraseña)
+        {
+            SqlConnection conn = Conectar();
+            SqlCommand consulta = conn.CreateCommand();
+            consulta.CommandText = "SP_EliminarUsuario";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@Usuario", NombreUsuario);
+            consulta.Parameters.AddWithValue("@Contraseña", Contraseña);
+            int cambio = consulta.ExecuteNonQuery();
+            Desconectar(conn);
+            return cambio;
+        }
     }
 }

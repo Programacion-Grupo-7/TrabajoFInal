@@ -10,6 +10,7 @@ namespace WebApplication1.Controllers
     public class UsuariosController : Controller
     {
         // GET: Usuarios
+        
        
         public ActionResult Index(Cancion c)
         { 
@@ -20,10 +21,11 @@ namespace WebApplication1.Controllers
 
         public ActionResult Perfil(Usuario u)
         {
-            Session["id"] = u.IdUsuario;
-            u = BD.ObtenerUsuario(u.IdUsuario);
+            List<Cancion> Lista = BD.TraerMusica();
+            ViewBag.ListaCanciones = Lista;
+            u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
+            ViewBag.Usuario = BD.ObtenerUsuario(u.IdUsuario);
             
-            ViewBag.Usuario = u;
             return View();
         }
 
@@ -57,6 +59,11 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+        public ActionResult EliminarUsuario(Usuario u)
+        {
+            BD.EliminarUsuario(u.NombreUsuario,u.Contraseña);
+            return RedirectToAction("Index");
+        }
         [HttpPost]
         public ActionResult SubirMusica(Cancion n, HttpPostedFileBase Audio)
         {
@@ -89,7 +96,9 @@ namespace WebApplication1.Controllers
             if (ViewBag.LogIn != null)
             {
                 Session["id"] =ViewBag.LogIn.IdUsuario;
-                return View("Perfil");
+                c.IdUsuario=ViewBag.LogIn.IdUsuario ;
+
+                return RedirectToAction("Perfil");
             }
             else
             {
