@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "RegistrarError";
+}
+
+
+@using (Html.BeginForm("LogInError", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <body>
+        <h2>El Nombre de Usuario ya Existe</h2>
+    </body>
+}
+@Html.ActionLink("Registrarse", "Registrarse", "Usuarios")

@@ -23,8 +23,11 @@
             foreach (Cancion c in ViewBag.ListaCanciones)
             {
 
-                <br><label style="color:white;">@c.Nombre</label> <br />
+                <br><label style="color:white;margin:auto;">@c.Nombre</label> <br />
                 <br><audio src="~/Musica/@c.Ubicacion" controls loop></audio><br />
+                <br><label style="color:white;font-size:13px">@c.Artista</label><br />
+                <input style="color:black" type="button" name="Fav" class="button1" value="Agregar Favoritos" />
+
 
             }
         }

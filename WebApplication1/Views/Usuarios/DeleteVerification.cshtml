@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "DeleteVerification";
+}
+
+<h2 style="text-align:center">¿ESTAS SEGURO QUE QUIERES BORRAR TU USUARIO?</h2>
+@Html.ActionLink("SI", "EliminarUsuario", "Usuarios", new { id = Session["Id"] }, null)
+@Html.ActionLink("NO", "Perfil", "Usuarios", new { id = Session["Id"] }, null)
+

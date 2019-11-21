@@ -201,6 +201,9 @@
     <Content Include="Views\Usuarios\Registrarse.cshtml" />
     <Content Include="Views\Usuarios\LogInError.cshtml" />
     <Content Include="Views\Usuarios\CerrarSesion.cshtml" />
+    <Content Include="Views\Usuarios\DeleteVerification.cshtml" />
+    <Content Include="Views\Usuarios\RegistrarError.cshtml" />
+    <Content Include="Views\Usuarios\EditarPerfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

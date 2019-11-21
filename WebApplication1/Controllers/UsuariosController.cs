@@ -21,8 +21,10 @@ namespace WebApplication1.Controllers
 
         public ActionResult Perfil(Usuario u)
         {
-            List<Cancion> Lista = BD.TraerMusica();
-            ViewBag.ListaCanciones = Lista;
+            u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
+            u = BD.ObtenerUsuario(u.IdUsuario);
+            List<Cancion> Lista = BD.TraerMiMusica(u);
+            ViewBag.Lista = Lista;
             u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
             ViewBag.Usuario = BD.ObtenerUsuario(u.IdUsuario);
             
@@ -59,25 +61,35 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-        public ActionResult EliminarUsuario(Usuario u)
+            public ActionResult EliminarUsuario(int id,Usuario c)
         {
-            BD.EliminarUsuario(u.NombreUsuario,u.Contraseña);
-            return RedirectToAction("Index");
+            c.IdUsuario = Convert.ToInt32(Session["id"].ToString());
+            c = BD.ObtenerUsuario(c.IdUsuario);
+            BD.EliminarUsuario(id,c);
+            return RedirectToAction("CerrarSesion");
+        }
+        public ActionResult EditarPerfil()
+        {
+            return View();
+        }
+        public ActionResult EliminarCancion(int id)
+        {
+            BD.EliminarCancion(id);
+            return RedirectToAction("Perfil");
         }
         [HttpPost]
-        public ActionResult SubirMusica(Cancion n, HttpPostedFileBase Audio)
+        public ActionResult SubirMusica(Cancion n, HttpPostedFileBase Audio,Usuario c)
         {
                if (Audio != null && Audio.ContentLength > 0)
                 {
+                c.IdUsuario = Convert.ToInt32(Session["id"].ToString());
+                c = BD.ObtenerUsuario(c.IdUsuario);
                     string newUbication = Server.MapPath("~/Musica/") + Audio.FileName;
                     Audio.SaveAs(newUbication);
                     n.Ubicacion = Audio.FileName;
+                    n.Artista = c.NombreUsuario;
                     BD.IngresarMusica(n);
                 }
-                /*else
-                {
-
-                }*/
                 return RedirectToAction("Index");
         }
         
@@ -85,10 +97,24 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Registrarse(Usuario u)
         {
-            BD.Registrarse(u);
-            return RedirectToAction("LogIn");
+            ViewBag.Reg=BD.Registrarse(u);
+            if (ViewBag.Reg == null)
+            {
+                return View("RegistrarError");
+            }
+            else
+            {
+                return RedirectToAction("LogIn");
+            }
         }
-
+        [HttpPost]
+        public ActionResult EditarPerfil(Usuario C)
+        {
+            C.IdUsuario= Convert.ToInt32(Session["id"].ToString());
+            C=BD.ObtenerUsuario(C.IdUsuario);
+            BD.EditarPerfil(C);
+            return View("Perfil");
+        }
         [HttpPost]
         public ActionResult LogIn(Usuario c)
         {  
@@ -106,6 +132,5 @@ namespace WebApplication1.Controllers
             }
             
         }
-    
     }
 }

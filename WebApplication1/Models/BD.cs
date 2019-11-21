@@ -49,7 +49,7 @@ namespace WebApplication1.Models
                 string NombreUsuario = dr["Nombre_Usuario"].ToString();
                 string Contraseña = dr["Contraseña"].ToString();
                 string Correo = dr["Correo"].ToString();
-             
+
                 Usuario unUsuario = new Usuario(IdUsuario, Nombre, Apellido, NombreUsuario, Contraseña, Correo);
                 lista.Add(unUsuario);
             }
@@ -58,7 +58,7 @@ namespace WebApplication1.Models
         }
         public static Usuario ObtenerUsuario(int id)
         {
-            Usuario unUsuario=null;
+            Usuario unUsuario = null;
             SqlConnection conn = Conectar();
             SqlCommand consulta = conn.CreateCommand();
             consulta.CommandText = "SELECT Id, Nombre, Apellido, Nombre_Usuario, Contraseña, Correo FROM Usuarios where Id= " + id;
@@ -89,9 +89,9 @@ namespace WebApplication1.Models
             consulta.Parameters.AddWithValue("@NomUsuario", c.NombreUsuario);
             consulta.Parameters.AddWithValue("@mail", c.Correo);
             consulta.Parameters.AddWithValue("@Contraseña", c.Contraseña);
-            int cambio = consulta.ExecuteNonQuery();
+            int u = consulta.ExecuteNonQuery();
             Desconectar(conn);
-            return cambio;
+            return u;
         }
         public static Usuario LogIn(Usuario c)
         {
@@ -104,15 +104,15 @@ namespace WebApplication1.Models
             SqlDataReader dr = consulta.ExecuteReader();
             if (dr.Read())
             {
-                
-                int id= Convert.ToInt32(dr["id"]);
+
+                int id = Convert.ToInt32(dr["id"]);
                 string Nombre = dr["Nombre"].ToString();
                 string Apellido = dr["Apellido"].ToString();
                 string NombreUsuario = dr["Nombre_Usuario"].ToString();
                 string Contraseña = dr["Contraseña"].ToString();
                 string Correo = dr["Correo"].ToString();
-                
-                Usuario unusuario= new Usuario(id,Nombre, Apellido, NombreUsuario, Contraseña, Correo);
+
+                Usuario unusuario = new Usuario(id, Nombre, Apellido, NombreUsuario, Contraseña, Correo);
                 Desconectar(conn);
                 return unusuario;
             }
@@ -122,7 +122,7 @@ namespace WebApplication1.Models
                 Desconectar(conn);
                 return null;
             }
-           
+
         }
         public static int IngresarMusica(Cancion c)
         {
@@ -132,6 +132,7 @@ namespace WebApplication1.Models
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@Nombre", c.Nombre);
             consulta.Parameters.AddWithValue("@Ubicacion", c.Ubicacion);
+            consulta.Parameters.AddWithValue("@Artista", c.Artista);
             int cambio = consulta.ExecuteNonQuery();
             Desconectar(conn);
             return cambio;
@@ -153,7 +154,7 @@ namespace WebApplication1.Models
                 string Album = dr["IdAlbum"].ToString();
                 string Genero = dr["Genero"].ToString();
                 string Imagen = dr["UbicacionImagen"].ToString();
-                Cancion unaCancion = new Cancion(Nombre, id, Artista, Ubicacion, Album,Genero,Imagen);
+                Cancion unaCancion = new Cancion(Nombre, id, Artista, Ubicacion, Album, Genero, Imagen);
                 Lista.Add(unaCancion);
             }
             Desconectar(conn);
@@ -176,23 +177,77 @@ namespace WebApplication1.Models
                 string Album = dr["IdAlbum"].ToString();
                 string Genero = dr["Genero"].ToString();
                 string Imagen = dr["UbicacionImagen"].ToString();
-                Cancion unaCancion = new Cancion(Nombre, id, Artista, Ubicacion, Album,Genero,Imagen);
+                Cancion unaCancion = new Cancion(Nombre, id, Artista, Ubicacion, Album, Genero, Imagen);
                 Lista.Add(unaCancion);
             }
             Desconectar(conn);
             return Lista;
         }
-        public static int EliminarUsuario(string NombreUsuario, string Contraseña)
+        public static int EliminarUsuario(int id,Usuario u)
         {
             SqlConnection conn = Conectar();
             SqlCommand consulta = conn.CreateCommand();
             consulta.CommandText = "SP_EliminarUsuario";
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
-            consulta.Parameters.AddWithValue("@Usuario", NombreUsuario);
-            consulta.Parameters.AddWithValue("@Contraseña", Contraseña);
+            consulta.Parameters.AddWithValue("@id", id);
+            consulta.Parameters.AddWithValue("@NombreU", u.NombreUsuario);
             int cambio = consulta.ExecuteNonQuery();
             Desconectar(conn);
             return cambio;
         }
+        public static int EliminarCancion(int id)
+        {
+            SqlConnection conn = Conectar();
+            SqlCommand consulta = conn.CreateCommand();
+            consulta.CommandText = "SP_EliminarCancion";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@id", id);
+            int cambio = consulta.ExecuteNonQuery();
+            Desconectar(conn);
+            return cambio;
+        }
+        public static int EditarPerfil(Usuario c)
+        {
+            SqlConnection conn = Conectar();
+            SqlCommand consulta = conn.CreateCommand();
+            consulta.CommandText = "SP_EditarPerfil";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@id", c.IdUsuario);
+            consulta.Parameters.AddWithValue("@Nombre", c.Nombre);
+            consulta.Parameters.AddWithValue("@Apellido", c.Apellido);
+            consulta.Parameters.AddWithValue("@Nombre_U", c.NombreUsuario);
+            consulta.Parameters.AddWithValue("@correo", c.Correo);
+            consulta.Parameters.AddWithValue("@Contraseña", c.Contraseña);
+            int cambio = consulta.ExecuteNonQuery();
+            Desconectar(conn); 
+            return cambio;
+            
+        }
+        public static List<Cancion> TraerMiMusica(Usuario u)
+        {
+            List<Cancion> Lista = new List<Cancion>();
+            SqlConnection conn = Conectar();
+            SqlCommand consulta = conn.CreateCommand();
+            consulta.CommandText = "SP_TraerMiMusica";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@NombreU", u.NombreUsuario);
+            SqlDataReader dr = consulta.ExecuteReader();
+            while (dr.Read())
+            {
+                int id = Convert.ToInt32(dr["id"]);
+                string Nombre = dr["Nombre"].ToString();
+                string Artista = dr["Artista"].ToString();
+                string Ubicacion = dr["UbicacionCancion"].ToString();
+                string Album = dr["IdAlbum"].ToString();
+                string Genero = dr["Genero"].ToString();
+                string Imagen = dr["UbicacionImagen"].ToString();
+                Cancion unaCancion = new Cancion(Nombre, id, Artista, Ubicacion, Album, Genero, Imagen);
+                Lista.Add(unaCancion);
+            }
+            Desconectar(conn);
+            return Lista;
+        }
     }
 }
+
+    

@@ -16,25 +16,32 @@
                 <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
                     <div class="well profile">
                         <div class="col-sm-12">
-                            <div class="col-xs-12 col-sm-8">
+                            <div style="height:50px" class="col-xs-12 col-sm-8">
                                 <h2 style="color:white">@ViewBag.Usuario.NombreUsuario</h2>
-                                @Html.ActionLink("Eliminar Usuario", "EliminarUsuario", "Usuario", new { id = ViewBag.Usuario.IdUsuario }, null)
+                                @Html.ActionLink("Editar Usuario", "EditarPerfil", "Usuarios", new { id = ViewBag.Usuario.IdUsuario }, null)
+                                @Html.ActionLink("Eliminar Usuario", "EliminarUsuario", "Usuarios", new { id = ViewBag.Usuario.IdUsuario }, new { onclick = "return confirm('Are you sure?');" })
                                 <div class="col-xs-12 divider text-center">
                                     <div class="col-xs-12 col-sm-4 emphasis">
                                         <div class="btn-group dropup btn-block">
+                                            <h2>MI CUENTA</h2>
+                                            <h3>@ViewBag.Usuario.Nombre</h3>
+                                            <h3>@ViewBag.Usuario.Apellido</h3>
+                                            <h3>@ViewBag.Usuario.Correo</h3>
+                                            <h3>@ViewBag.Usuario.NombreUsuario</h3>
                                             <div class="form-input editContent" data-selector=".editContent" style=""><button class="btn" data-selector="a.btn, button.btn" style="">@Html.ActionLink("Subir Audio", "SubirMusica", "Usuarios")</button></div>
                                         </div>
                                     </div>
                                 </div>
-
-                                @foreach (Cancion c in ViewBag.ListaCanciones)
+                                @using (Html.BeginForm("EliminarCancion", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
-
-                                    <br><label style="color:white;">@c.Nombre</label> <br />
-                                    <br><audio src="~/Musica/@c.Ubicacion" controls loop></audio><br />
-                                    @Html.ActionLink("Eliminar Cancion", "EliminarCancion", "Usaurio", new { id = c.Nombre }, null)
-
+                                    foreach (Cancion c in ViewBag.Lista)
+                                    {
+                                        <br><label style="color:white;">@c.Nombre</label> <br />
+                                        <br><audio src="~/Musica/@c.Ubicacion" controls loop></audio><br />
+                                        @Html.ActionLink("Eliminar Cancion", "EliminarCancion", "Usuarios", new { id = c.id }, null)
+                                    }
                                 }
+
                             </div>
                         </div>  
                     </div>
