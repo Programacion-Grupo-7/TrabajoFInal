@@ -1,0 +1,17 @@
+﻿@using WebApplication1.Models
+@model Usuario
+@{
+    ViewBag.Title = "MICUENTA";
+}
+<body>
+    <h2 style="color:black">MICUENTA</h2>
+    @{ if (ViewBag.Usuario != null)
+        {
+            <br /><label style="color:black">@ViewBag.Usuario.Nombre</label>
+            <br /><label style="color:black">@ViewBag.Usuario.Apellido</label>
+            <br /><label style="color:black">@ViewBag.Usuario.Correo</label>
+            <br /><label style="color:black">@ViewBag.Usuario.NombreUsuario</label>
+        }
+    }
+
+</body>

@@ -204,6 +204,8 @@
     <Content Include="Views\Usuarios\DeleteVerification.cshtml" />
     <Content Include="Views\Usuarios\RegistrarError.cshtml" />
     <Content Include="Views\Usuarios\EditarPerfil.cshtml" />
+    <Content Include="Views\Usuarios\Favoritos.cshtml" />
+    <Content Include="Views\Usuarios\MICUENTA.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

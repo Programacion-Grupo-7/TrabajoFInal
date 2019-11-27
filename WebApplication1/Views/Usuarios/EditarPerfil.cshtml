@@ -2,8 +2,9 @@
 @{
     ViewBag.Title = "EditarPerfil";
 }
-
-<h2 style="text-align:center">Editar tu Perfil</h2>
+@using (Html.BeginForm("EditarPerfil", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h2 style="text-align:center">Editar tu Perfil</h2>
 <body>
     <div style="padding: 15%; text-align:center;float:left;margin-left:25%;background-color:transparent;">
         <div class="form-group">
@@ -26,7 +27,7 @@
             <label for="Contraseña" class="text-info">Contraseña:</label><br>
             <input type="password" name="Contraseña" id="Contraseña" class="form-control">
         </div>
-        <div class="form-input editContent" data-selector=".editContent" style=""><button class="btn" data-selector="a.btn, button.btn" style="">@Html.ActionLink("Guardar Cambios", "EditarPerfil","Usuarios",null)</button></div>
+        <div class="form-input editContent" data-selector=".editContent" style=""><button class="btn" data-selector="a.btn, button.btn" style="">Guardar</button></div>
     </div>
 </body>
-
+}

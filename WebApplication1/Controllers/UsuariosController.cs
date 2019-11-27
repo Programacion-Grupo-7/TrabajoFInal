@@ -111,9 +111,8 @@ namespace WebApplication1.Controllers
         public ActionResult EditarPerfil(Usuario C)
         {
             C.IdUsuario= Convert.ToInt32(Session["id"].ToString());
-            C=BD.ObtenerUsuario(C.IdUsuario);
             BD.EditarPerfil(C);
-            return View("Perfil");
+            return RedirectToAction("Perfil");
         }
         [HttpPost]
         public ActionResult LogIn(Usuario c)
@@ -131,6 +130,23 @@ namespace WebApplication1.Controllers
                 return View("LogInError");
             }
             
+        }
+       
+        public ActionResult Favoritos(Usuario u)
+        {
+            List<Cancion> c=new List<Cancion>();
+            c = BD.TraerMiMusica(u);
+            u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
+            u = BD.ObtenerUsuario(u.IdUsuario);
+            BD.Favorito(c,u);
+            return View("Index");
+        }
+        
+        public ActionResult MICUENTA(Usuario u)
+        {
+            u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
+            ViewBag.Usuario = BD.ObtenerUsuario(u.IdUsuario);
+            return View();
         }
     }
 }

@@ -247,6 +247,18 @@ namespace WebApplication1.Models
             Desconectar(conn);
             return Lista;
         }
+        public static int Favorito(Cancion c,Usuario u)
+        {
+            SqlConnection conn = Conectar();
+            SqlCommand consulta = conn.CreateCommand();
+            consulta.CommandText = "SP_Favoritos";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@id", c.id);
+            consulta.Parameters.AddWithValue("@idUsuario", u.IdUsuario);
+            int cambio = consulta.ExecuteNonQuery();
+            Desconectar(conn);
+            return cambio;
+        }
     }
 }
 

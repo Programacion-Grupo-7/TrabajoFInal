@@ -17,17 +17,14 @@
                     <div class="well profile">
                         <div class="col-sm-12">
                             <div style="height:50px" class="col-xs-12 col-sm-8">
-                                <h2 style="color:white">@ViewBag.Usuario.NombreUsuario</h2>
+                                <h1 style="color:white">@ViewBag.Usuario.NombreUsuario</h1>
                                 @Html.ActionLink("Editar Usuario", "EditarPerfil", "Usuarios", new { id = ViewBag.Usuario.IdUsuario }, null)
-                                @Html.ActionLink("Eliminar Usuario", "EliminarUsuario", "Usuarios", new { id = ViewBag.Usuario.IdUsuario }, new { onclick = "return confirm('Are you sure?');" })
+
+                                @Html.ActionLink("Favoritos", "Favoritos", "Usuarios", new { id = ViewBag.Usuario.IdUsuario }, null)
                                 <div class="col-xs-12 divider text-center">
                                     <div class="col-xs-12 col-sm-4 emphasis">
                                         <div class="btn-group dropup btn-block">
-                                            <h2>MI CUENTA</h2>
-                                            <h3>@ViewBag.Usuario.Nombre</h3>
-                                            <h3>@ViewBag.Usuario.Apellido</h3>
-                                            <h3>@ViewBag.Usuario.Correo</h3>
-                                            <h3>@ViewBag.Usuario.NombreUsuario</h3>
+                                            @Html.ActionLink("Mi Cuenta", "MICUENTA", "Usuarios", new { id = ViewBag.Usuario.IdUsuario}, null)
                                             <div class="form-input editContent" data-selector=".editContent" style=""><button class="btn" data-selector="a.btn, button.btn" style="">@Html.ActionLink("Subir Audio", "SubirMusica", "Usuarios")</button></div>
                                         </div>
                                     </div>
@@ -41,6 +38,7 @@
                                         @Html.ActionLink("Eliminar Cancion", "EliminarCancion", "Usuarios", new { id = c.id }, null)
                                     }
                                 }
+                                @Html.ActionLink("Eliminar Usuario", "EliminarUsuario", "Usuarios", new { id = ViewBag.Usuario.IdUsuario }, new { onclick = "return confirm('Are you sure?');" })
 
                             </div>
                         </div>  
