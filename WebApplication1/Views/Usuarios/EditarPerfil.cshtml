@@ -3,11 +3,11 @@
 @{
     ViewBag.Title = "EditarPerfil";
 }
-<h2 style="text-align:center">Editar tu Perfil</h2>
+
 @using (Html.BeginForm("EditarPerfil", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <body>
-        <div style="padding: 15%; text-align:center;float:left;margin-left:25%;background-color:transparent;">
+        <div style="padding: 15%; text-align:center;float:left;margin-left:25%;">
             <div class="form-group">
                 <label for="Nombre" class="text-info">Nombre:</label><br>
                 <input type="text" name="Nombre" id="Nombre" class="form-control">

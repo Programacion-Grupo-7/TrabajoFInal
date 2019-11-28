@@ -3,12 +3,19 @@
 @{
     ViewBag.Title = "SubirMusica";
 }
-<h2>SubirMusica</h2>
-@using (Html.BeginForm("SubirMusica", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@if (Session["id"] != null)
 {
-<body>
-    <p style="color:black">@Html.Label("Nombre: ") @Html.TextBoxFor(x => x.Nombre) @Html.ValidationMessageFor(x => x.Nombre) <br></p>
-    @Html.Label("Audio: ") <input type="file" value="Mandar audio del cliente al controller" name="Audio" /><br>
-    <button style="color:black"submit">Subir Musica</button>
-</body>
+    <h2>SubirMusica</h2>
+    using (Html.BeginForm("SubirMusica", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <body>
+            <p style="color:black">@Html.Label("Nombre: ") @Html.TextBoxFor(x => x.Nombre) @Html.ValidationMessageFor(x => x.Nombre) <br></p>
+            @Html.Label("Audio: ") <input type="file" value="Mandar audio del cliente al controller" name="Audio" /><br>
+            <button style="color:black" submit">Subir Musica</button>
+        </body>
+    }
+}
+else
+{
+    <h2>NO ESTAS LOGUEADO</h2>
 }

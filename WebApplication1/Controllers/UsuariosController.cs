@@ -14,29 +14,51 @@ namespace WebApplication1.Controllers
        
         public ActionResult Index(Cancion c,string busqueda)
         {
-            List<Cancion> Lista = BD.TraerMusica();
-            ViewBag.ListaCanciones = Lista;
-            return View();
+            if (Session["id"] != null)
+            {
+                List<Cancion> Lista = BD.TraerMusica();
+                ViewBag.ListaCanciones = Lista;
+                return View();
+            }
+            else
+            {
+                return View("LogInError");
+            }
         }
-         
 
-    public ActionResult Perfil(Usuario u)
+
+        public ActionResult Perfil(Usuario u)
         {
-            u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
-            u = BD.ObtenerUsuario(u.IdUsuario);
-            List<Cancion> Lista = BD.TraerMiMusica(u);
-            ViewBag.Lista = Lista;
-            u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
-            ViewBag.Usuario = BD.ObtenerUsuario(u.IdUsuario);
+            if (Session["id"] != null)
+            {
+                u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
+                u = BD.ObtenerUsuario(u.IdUsuario);
+                List<Cancion> Lista = BD.TraerMiMusica(u);
+                ViewBag.Lista = Lista;
+                u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
+                ViewBag.Usuario = BD.ObtenerUsuario(u.IdUsuario);
+                return View();
+            }
+            else
+            {
+                return View("LogInError");
+            }
             
-            return View();
+            
         }
 
         public ActionResult Tendencia()
         {
-            List<Cancion> Lista = BD.TOP50();
-            ViewBag.ListaCanciones = Lista;
-            return View();
+            if (Session["id"] != null)
+            {
+                List<Cancion> Lista = BD.TOP50();
+                ViewBag.ListaCanciones = Lista;
+                return View();
+            }
+            else
+            {
+                return View("LogInError");
+            }
         }
         [HttpPost]
         public ActionResult Tendencia(string busqueda)
@@ -162,9 +184,9 @@ namespace WebApplication1.Controllers
             u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
             u = BD.ObtenerUsuario(u.IdUsuario);
             BD.Favorito(c,u);
-
-            
-            return RedirectToAction("Favoritos");
+           
+                return RedirectToAction("Favoritos");
+           
         }
         public ActionResult EliminarFavoritos(Cancion c, Usuario u)
         {
@@ -177,9 +199,16 @@ namespace WebApplication1.Controllers
 
         public ActionResult MICUENTA(Usuario u)
         {
-            u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
-            ViewBag.Usuario = BD.ObtenerUsuario(u.IdUsuario);
-            return View();
+            if (Session["id"] != null)
+            {
+                u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
+                ViewBag.Usuario = BD.ObtenerUsuario(u.IdUsuario);
+                return View();
+            }
+            else
+            {
+                return View("LogInError");
+            }
         }
     }
 }

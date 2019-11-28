@@ -191,7 +191,7 @@ namespace WebApplication1.Models
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@id", id);
             consulta.Parameters.AddWithValue("@NombreU", u.NombreUsuario);
-            int cambio = consulta.ExecuteNonQuery();
+           int cambio = consulta.ExecuteNonQuery();
             Desconectar(conn);
             return cambio;
         }
@@ -269,6 +269,7 @@ namespace WebApplication1.Models
             consulta.Parameters.AddWithValue("@idUsuario", u.IdUsuario);
             consulta.ExecuteNonQuery();
             Desconectar(conn);
+            
             
         }
         public static List<Cancion> Filtrar(string c)

@@ -3,19 +3,24 @@
 @{
     ViewBag.Title = "Favoritos";
 }
+@if (Session["id"] != null)
+{
+    <h2>Favoritos</h2>
 
-<h2>Favoritos</h2>
+    if (ViewBag.ListaCanciones != null)
+    {
 
-@if (ViewBag.ListaCanciones != null)
+        foreach (Cancion c in ViewBag.ListaCanciones)
         {
-    
-            foreach (Cancion c in ViewBag.ListaCanciones)
-            {
-<body>
-    <label style="font-size:20px">@c.Nombre</label>
-    <label style="color:white;font-size:13px">Artista: @c.Artista</label><br />
-    <br /><audio src="~/Musica/@c.Ubicacion" controls loop></audio><br />
-    @Html.ActionLink("Eliminar De Favoritos", "EliminarFavoritos", "Usuarios", new { id = c.id }, null)
-</body>
-            }
+            <body>
+                <label style="font-size:20px">@c.Nombre</label>
+                <label style="color:white;font-size:13px">Artista: @c.Artista</label><br />
+                <br /><audio src="~/Musica/@c.Ubicacion" controls loop></audio><br />
+                @Html.ActionLink("Eliminar De Favoritos", "EliminarFavoritos", "Usuarios", new { id = c.id }, null)
+            </body>
         }
+    }
+}else
+{
+    <h2>NO ESTAS LOGUEADO</h2>
+}

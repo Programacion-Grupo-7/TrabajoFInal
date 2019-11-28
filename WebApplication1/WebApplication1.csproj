@@ -206,6 +206,7 @@
     <Content Include="Views\Usuarios\EditarPerfil.cshtml" />
     <Content Include="Views\Usuarios\Favoritos.cshtml" />
     <Content Include="Views\Usuarios\MICUENTA.cshtml" />
+    <Content Include="Views\Usuarios\FavoritosError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
