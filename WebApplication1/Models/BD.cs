@@ -206,6 +206,18 @@ namespace WebApplication1.Models
             Desconectar(conn);
             return cambio;
         }
+        public static int EliminarFavorito(Cancion c,Usuario u)
+        {
+            SqlConnection conn = Conectar();
+            SqlCommand consulta = conn.CreateCommand();
+            consulta.CommandText = "DeleteFav";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@idCancion", c.id);
+            consulta.Parameters.AddWithValue("@idUsuario", u.IdUsuario);
+            int cambio = consulta.ExecuteNonQuery();
+            Desconectar(conn);
+            return cambio;
+        }
         public static int EditarPerfil(Usuario c)
         {
             SqlConnection conn = Conectar();
@@ -247,7 +259,7 @@ namespace WebApplication1.Models
             Desconectar(conn);
             return Lista;
         }
-        public static int Favorito(Cancion c,Usuario u)
+        public static void Favorito(Cancion c,Usuario u)
         {
             SqlConnection conn = Conectar();
             SqlCommand consulta = conn.CreateCommand();
@@ -255,9 +267,57 @@ namespace WebApplication1.Models
             consulta.CommandType = System.Data.CommandType.StoredProcedure;
             consulta.Parameters.AddWithValue("@id", c.id);
             consulta.Parameters.AddWithValue("@idUsuario", u.IdUsuario);
-            int cambio = consulta.ExecuteNonQuery();
+            consulta.ExecuteNonQuery();
             Desconectar(conn);
-            return cambio;
+            
+        }
+        public static List<Cancion> Filtrar(string c)
+        {
+            List<Cancion> Lista = new List<Cancion>();
+            SqlConnection conn = Conectar();
+            SqlCommand consulta = conn.CreateCommand();
+            consulta.CommandText = "SP_BuscarxNombre";
+            consulta.CommandType = System.Data.CommandType.StoredProcedure;
+            consulta.Parameters.AddWithValue("@Nombre", c);
+            SqlDataReader dr = consulta.ExecuteReader();
+            while (dr.Read())
+            {
+                int id = Convert.ToInt32(dr["Id"]);
+                string Nombre = dr["Nombre"].ToString();
+                string Artista = dr["Artista"].ToString();
+                string Ubicacion = dr["UbicacionCancion"].ToString();
+                string Album = dr["IdAlbum"].ToString();
+                string Genero = dr["Genero"].ToString();
+                string Imagen = dr["UbicacionImagen"].ToString();
+                Cancion unaCancion = new Cancion(Nombre, id, Artista, Ubicacion, Album, Genero, Imagen);
+                Lista.Add(unaCancion);
+            }
+            Desconectar(conn);
+            return Lista;
+
+        }
+        public static List<Cancion> TraerFav(Usuario u)
+        {
+            List<Cancion> Lista = new List<Cancion>();
+            SqlConnection conn = Conectar();
+            SqlCommand consulta = conn.CreateCommand();
+            consulta.CommandText = "Select * from Canciones inner join Favorito on Id_Canciones = Id where Id_Usuarios = " + u.IdUsuario;
+            consulta.CommandType = System.Data.CommandType.Text;
+            SqlDataReader dr = consulta.ExecuteReader();
+            while (dr.Read())
+            {
+                int id = Convert.ToInt32(dr["Id"]);
+                string Nombre = dr["Nombre"].ToString();
+                string Artista = dr["Artista"].ToString();
+                string Ubicacion = dr["UbicacionCancion"].ToString();
+                string Album = dr["IdAlbum"].ToString();
+                string Genero = dr["Genero"].ToString();
+                string Imagen = dr["UbicacionImagen"].ToString();
+                Cancion unaCancion = new Cancion(Nombre, id, Artista, Ubicacion, Album, Genero, Imagen);
+                Lista.Add(unaCancion);
+            }
+            Desconectar(conn);
+            return Lista;
         }
     }
 }

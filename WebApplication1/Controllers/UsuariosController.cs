@@ -12,14 +12,15 @@ namespace WebApplication1.Controllers
         // GET: Usuarios
         
        
-        public ActionResult Index(Cancion c)
-        { 
-                List<Cancion> Lista = BD.TraerMusica();
-                ViewBag.ListaCanciones = Lista;
-                return View();   
+        public ActionResult Index(Cancion c,string busqueda)
+        {
+            List<Cancion> Lista = BD.TraerMusica();
+            ViewBag.ListaCanciones = Lista;
+            return View();
         }
+         
 
-        public ActionResult Perfil(Usuario u)
+    public ActionResult Perfil(Usuario u)
         {
             u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
             u = BD.ObtenerUsuario(u.IdUsuario);
@@ -37,10 +38,19 @@ namespace WebApplication1.Controllers
             ViewBag.ListaCanciones = Lista;
             return View();
         }
+        [HttpPost]
+        public ActionResult Tendencia(string busqueda)
+        {
+            List<Cancion> c = new List<Cancion>();
+            c = BD.Filtrar(busqueda);
+            ViewBag.ListaCanciones = c;
+            return View();
+        }
         public ActionResult Registrarse()
         {
             return View();
         }
+   
         public ActionResult CerrarSesion()
         {
             Session["id"] = null;
@@ -108,6 +118,14 @@ namespace WebApplication1.Controllers
             }
         }
         [HttpPost]
+            public ActionResult Index(string busqueda)
+            {
+            List<Cancion> c=new List<Cancion>();
+            c = BD.Filtrar(busqueda);
+            ViewBag.ListaCanciones = c;
+            return View();
+            }
+    [HttpPost]
         public ActionResult EditarPerfil(Usuario C)
         {
             C.IdUsuario= Convert.ToInt32(Session["id"].ToString());
@@ -131,17 +149,32 @@ namespace WebApplication1.Controllers
             }
             
         }
-       
         public ActionResult Favoritos(Usuario u)
         {
-            List<Cancion> c=new List<Cancion>();
-            c = BD.TraerMiMusica(u);
+            u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
+            u = BD.ObtenerUsuario(u.IdUsuario);
+            List<Cancion> Lista = BD.TraerFav(u);
+            ViewBag.ListaCanciones = Lista;
+            return View();
+        }
+        public ActionResult AgregarFavoritos(Cancion c,Usuario u)
+        {
             u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
             u = BD.ObtenerUsuario(u.IdUsuario);
             BD.Favorito(c,u);
-            return View("Index");
+
+            
+            return RedirectToAction("Favoritos");
         }
-        
+        public ActionResult EliminarFavoritos(Cancion c, Usuario u)
+        {
+            u.IdUsuario = Convert.ToInt32(Session["id"].ToString());
+            u = BD.ObtenerUsuario(u.IdUsuario);
+            BD.EliminarFavorito(c, u);
+
+            return RedirectToAction("Favoritos");
+        }
+
         public ActionResult MICUENTA(Usuario u)
         {
             u.IdUsuario = Convert.ToInt32(Session["id"].ToString());

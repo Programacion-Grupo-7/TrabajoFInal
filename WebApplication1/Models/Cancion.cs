@@ -14,8 +14,8 @@ namespace WebApplication1.Models
         private string _Album;
         private string _Genero;
         private string _Imagen;
+   
 
-        
         public Cancion() { }
 
         public Cancion(string Nombre, int id, string Artista, string Ubicacion, string Album, string Genero, string Imagen)
@@ -27,6 +27,7 @@ namespace WebApplication1.Models
             _Album = Album;
             _Genero = Genero;
             _Imagen = Imagen;
+          
         }
 
         public string Ubicacion {
@@ -105,5 +106,6 @@ namespace WebApplication1.Models
                 _Imagen = value;
             }
         }
+
     }
 }

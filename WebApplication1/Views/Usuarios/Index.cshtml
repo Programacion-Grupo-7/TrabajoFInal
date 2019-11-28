@@ -4,8 +4,7 @@
 @{
     ViewBag.Title = "Home Page";
 }
-@using (Html.BeginForm("Favoritos", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
+
 <body>
     <h1 style="color:orange;">Bienvenido!!</h1>
     <div class="banner-bottom text-center" style="color:white;">
@@ -18,22 +17,29 @@
         </p>
 
     </div>
+    @using (Html.BeginForm("Index", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+    <p>Buscar por nombre:</p>
+        <p style="color: black">
+            @Html.TextBox("busqueda")
+            <input type="submit" value="Buscar"  />
+        </p>
+    }
     @{
 
         if (ViewBag.ListaCanciones != null)
         {
             foreach (Cancion c in ViewBag.ListaCanciones)
-            {
-
-                <br><label style="color:white;margin:auto;">@c.Nombre</label> <br />
-                <br><audio src="~/Musica/@c.Ubicacion" controls loop></audio><br />
-                <br><label style="color:white;font-size:13px">@c.Artista</label><br />
-                <div class="form-input editContent" data-selector=".editContent" style=""><button class="btn" data-selector="a.btn, button.btn" style="">AGREGAR A FAVORITOS</button></div>
-
+            { 
+                    <br><label style="color:white;margin:auto;">Nombre de la Cancion: @c.Nombre</label> <br />
+                    <br><audio src="~/Musica/@c.Ubicacion" controls loop></audio>
+                    <br><label style="color:white;font-size:13px">Artista: @c.Artista</label><br />
+                    <div class="form-input editContent" data-selector=".editContent" style=""><button class="btn" data-selector="a.btn, button.btn" style="">@Html.ActionLink("Agregar a Favoritos", "AgregarFavoritos", "Usuarios", new { id = c.id }, null)</button></div>
+                
             }
         }
-    }
+     }
 
-</body>
- }
+    </body>
+ 
 

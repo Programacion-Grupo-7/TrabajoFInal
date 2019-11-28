@@ -10,42 +10,38 @@
 <body>
     @if (ViewBag.Usuario != null)
     {
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-                    <div class="well profile">
-                        <div class="col-sm-12">
-                            <div style="height:50px" class="col-xs-12 col-sm-8">
-                                <h1 style="color:white">@ViewBag.Usuario.NombreUsuario</h1>
-                                @Html.ActionLink("Editar Usuario", "EditarPerfil", "Usuarios", new { id = ViewBag.Usuario.IdUsuario }, null)
 
-                                @Html.ActionLink("Favoritos", "Favoritos", "Usuarios", new { id = ViewBag.Usuario.IdUsuario }, null)
-                                <div class="col-xs-12 divider text-center">
-                                    <div class="col-xs-12 col-sm-4 emphasis">
-                                        <div class="btn-group dropup btn-block">
-                                            @Html.ActionLink("Mi Cuenta", "MICUENTA", "Usuarios", new { id = ViewBag.Usuario.IdUsuario}, null)
-                                            <div class="form-input editContent" data-selector=".editContent" style=""><button class="btn" data-selector="a.btn, button.btn" style="">@Html.ActionLink("Subir Audio", "SubirMusica", "Usuarios")</button></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @using (Html.BeginForm("EliminarCancion", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                {
-                                    foreach (Cancion c in ViewBag.Lista)
-                                    {
-                                        <br><label style="color:white;">@c.Nombre</label> <br />
-                                        <br><audio src="~/Musica/@c.Ubicacion" controls loop></audio><br />
-                                        @Html.ActionLink("Eliminar Cancion", "EliminarCancion", "Usuarios", new { id = c.id }, null)
-                                    }
-                                }
-                                @Html.ActionLink("Eliminar Usuario", "EliminarUsuario", "Usuarios", new { id = ViewBag.Usuario.IdUsuario }, new { onclick = "return confirm('Are you sure?');" })
+        <h1 style="color:white">@ViewBag.Usuario.NombreUsuario</h1>
+       
+ 
+            
+        
+        <div class="col-xs-12 divider text-center">
+            <div class="col-xs-12 col-sm-4 emphasis">
+                <div class="btn-group dropup btn-block">
 
-                            </div>
-                        </div>  
-                    </div>
+                    <br /> <div><button class="btn" data-selector="a.btn, button.btn" style="margin-right:100%">@Html.ActionLink(" Subir Audio  ", "SubirMusica", "Usuarios")</button></div>
+
+                    <br /><div class="form-input editContent" data-selector=".editContent" style="margin-right:100%"><button class="btn" data-selector="a.btn, button.btn" style="">@Html.ActionLink("Editar Usuario", "EditarPerfil", "Usuarios", new { id = ViewBag.Usuario.IdUsuario }, null)</button></div>
+
+                    <br /> <div class="form-input editContent" data-selector=".editContent" style="margin-right:100%"><button class="btn" data-selector="a.btn, button.btn" style="">@Html.ActionLink("Eliminar Usuario", "EliminarUsuario", "Usuarios", new { id = ViewBag.Usuario.IdUsuario }, new { onclick = "return confirm('Are you sure?');" })</button></div>
+                    <br /><h2 style="color:white">Mis Canciones:</h2>
                 </div>
             </div>
         </div>
+        using (Html.BeginForm("EliminarCancion", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            foreach (Cancion c in ViewBag.Lista)
+            {
+               
+                <br><label style="color:white;">@c.Nombre</label> <br />
+                <br><audio src="~/Musica/@c.Ubicacion" controls loop></audio><br />
+                <div class="form-input editContent" data-selector=".editContent" style=""><button class="btn" data-selector="a.btn, button.btn" style="">@Html.ActionLink("Eliminar Cancion", "EliminarCancion", "Usuarios", new { id = c.id }, null)</button></div>
+            }
+        }
+
+         
+               
 
     }
 </body>

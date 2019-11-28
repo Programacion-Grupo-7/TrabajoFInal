@@ -3,15 +3,16 @@
 @{
     ViewBag.Title = "MICUENTA";
 }
-<body>
-    <h2 style="color:black">MICUENTA</h2>
-    @{ if (ViewBag.Usuario != null)
-        {
-            <br /><label style="color:black">@ViewBag.Usuario.Nombre</label>
-            <br /><label style="color:black">@ViewBag.Usuario.Apellido</label>
-            <br /><label style="color:black">@ViewBag.Usuario.Correo</label>
-            <br /><label style="color:black">@ViewBag.Usuario.NombreUsuario</label>
-        }
-    }
 
-</body>
+<h2 style="color:white">Mi Cuenta</h2>
+@{ if (ViewBag.Usuario != null)
+    {
+        <body>
+            <br /><label style="color:white">Nombre: @ViewBag.Usuario.Nombre</label>
+            <br /><label style="color:white">Apellido: @ViewBag.Usuario.Apellido</label>
+            <br /><label style="color:white">Correo: @ViewBag.Usuario.Correo</label>
+            <br /><label style="color:white">Nombre de Usuario: @ViewBag.Usuario.NombreUsuario</label>
+        </body>
+    }
+}
+

@@ -4,13 +4,23 @@
     ViewBag.Title = "Tendencia";
 }
 <body>
+    <h1 style="color:white">Tendencia</h1>
     @{
-
+        using (Html.BeginForm("Tendencia", "Usuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <p>Buscar por nombre:</p>
+            <p style="color:black">
+                @Html.TextBox("busqueda")
+                <input type="submit" value="Buscar" />
+            </p>
+        }
         if (ViewBag.ListaCanciones != null)
         {
+
             foreach (Cancion c in ViewBag.ListaCanciones)
             {
-                <br /><label>@c.Nombre</label><br />
+                <label style="font-size:20px">@c.Nombre</label>
+               <label style="color:white;font-size:13px">Artista: @c.Artista</label><br />
                 <br /><audio src="~/Musica/@c.Ubicacion" controls loop></audio><br />
 
             }
